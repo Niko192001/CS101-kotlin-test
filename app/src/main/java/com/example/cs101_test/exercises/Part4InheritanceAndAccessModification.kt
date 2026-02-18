@@ -1,5 +1,7 @@
 package com.example.cs101_test.exercises
 
+import org.intellij.lang.annotations.Language
+
 object Part4InheritanceAndAccessModification {
     // ---------------------- EXERCISE 1
     // Create a base/open class called Appliance with 3 properties: brand, powerConsumption, and isOn
@@ -14,19 +16,25 @@ object Part4InheritanceAndAccessModification {
         fun turnOn() {
             isOn = true
         }
+
         fun turnOff() {
             isOn = false
         }
+
         override fun toString(): String {
             return "[brand=$brand, powerConsumption=$powerConsumption, isOn=$isOn]"
         }
     }
-    class WashingMachine(brand: String, powerConsumption: Int) : Appliance(brand, powerConsumption, false) {
+
+    class WashingMachine(brand: String, powerConsumption: Int) :
+        Appliance(brand, powerConsumption, false) {
         fun showFeatures() {
             println("This washing machine has a quick wash feature.")
         }
     }
-    class Refrigerator(brand: String, powerConsumption: Int) : Appliance(brand, powerConsumption, false) {
+
+    class Refrigerator(brand: String, powerConsumption: Int) :
+        Appliance(brand, powerConsumption, false) {
         fun showFeatures() {
             println("This refrigerator has a freezer feature.")
         }
@@ -39,6 +47,58 @@ object Part4InheritanceAndAccessModification {
     // Implement the method work() for all classes, which prints a message indicating the type of work the employee is doing
     // E.g. an Employee.work() should print one thing and Developer.work() another
     // The work() method must print something and not be blank, but you can choose what you want it to print!
+    open class Employee(
+        val name: String,
+        val position: String,
+        val salary: Double
+    ) {
+        open fun work() {
+            println("$name is doing general employee work")
+        }
+    }
+
+    class Manager(
+        name: String,
+        salary: Double,
+        val department: String,
+    ) : Employee(name, "Manager", salary) {
+
+        override fun work() {
+            println("$name is managing the $department department")
+        }
+    }
+
+    class Developer(
+        name: String,
+        salary: Double,
+        val programmingLanguage: String
+    ) : Employee(name, "Developer", salary) {
+
+        override fun work() {
+            println("$name is writing code in $programmingLanguage")
+        }
+    }
+
+    class Intern(
+        name: String,
+        salary: Double,
+        val school: String
+    ) : Employee(name, "Intern", salary) {
+
+        override fun work() {
+            println("$name is learning and assisting while studying for $school")
+        }
+    }
+
+    fun main() {
+        val manager = Manager("Alice", 75000.0, "sales")
+        val dev = Developer("Bob", 60000.0, "Kotlin")
+        val intern = Intern("Peter", 15000.0, "EK - Erhversakademi København")
+
+        manager.work()
+        dev.work()
+        intern.work()
+    }
 
 
     // ---------------------- EXERCISE 3
@@ -58,6 +118,7 @@ object Part4InheritanceAndAccessModification {
     //             field = if (value in 0..150) value else 0
     //         }
     // }
+
 
 
     // ---------------------- EXERCISE 4
